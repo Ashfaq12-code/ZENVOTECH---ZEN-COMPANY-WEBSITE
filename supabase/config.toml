@@ -1,0 +1,5 @@
+[functions.admin-api]
+verify_jwt = false
+
+[functions.google-reviews]
+verify_jwt = false
