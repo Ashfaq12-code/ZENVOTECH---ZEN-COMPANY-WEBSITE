@@ -1,3 +1,6 @@
+
+@'
+# Logs
 logs
 *.log
 npm-debug.log*
@@ -6,20 +9,30 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Dependencies and build output
+node_modules/
+dist/
+dist-ssr/
 
+# Local files and secrets
+*.local
+.env
+.env.*
+!.env.example
+
+# Deployment
+.vercel/
+
+# Editors
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-.env
 
-.vercel
+# Operating system
+.DS_Store
+'@ | Set-Content -Encoding utf8 .gitignore
