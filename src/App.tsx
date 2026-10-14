@@ -228,7 +228,6 @@ type TeamMember = {
   color: string;
 };
 
-
 const team: TeamMember[] = [
   {
     initials: 'AA',
@@ -1470,13 +1469,13 @@ with modern scalable solutions.</p>
         </form>
       </section>
 
-      <HomeFooter />
+      <HomeFooter onWhatsAppClick={() => setShowWhatsAppChat((isOpen) => !isOpen)} />
       {!isProjectPreview && (
         <div className={`home-whatsapp-widget${heroVisible ? ' is-hero-visible' : ''}`}>
           {showWhatsAppChat && (
             <section className="home-whatsapp-panel" aria-label="WhatsApp chat">
               <div className="home-whatsapp-panel-header">
-                <img src="https://i.ibb.co/ynxfn27n/images-8-removebg-preview.png" alt="" />
+                <img src="https://i.ibb.co/GQmp6ZZs/Screenshot-2026-10-03-124656-removebg-preview-1.png" alt="zenvotech logo" />
                 <div>
                   <strong>Chat with zenvotech</strong>
                   <span>We’re here to help</span>
@@ -1498,7 +1497,7 @@ with modern scalable solutions.</p>
           )}
           <button
             type="button"
-            className="home-whatsapp-trigger"
+            className="home-whatsapp-trigger mobile-only-trigger"
             aria-label={showWhatsAppChat ? 'Close WhatsApp chat' : 'Open WhatsApp chat'}
             aria-expanded={showWhatsAppChat}
             onClick={() => setShowWhatsAppChat((isOpen) => !isOpen)}
