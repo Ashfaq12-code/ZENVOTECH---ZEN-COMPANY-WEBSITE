@@ -75,7 +75,7 @@ export default function HomeFooter({ showMap = true }: HomeFooterProps) {
         <section className="footer-map-section" aria-labelledby="footer-map-title">
           <div className="footer-map-heading">
             <p className="eyebrow">Find us</p>
-            <h2 id="footer-map-title">Zenvora Technologies (Pvt) Ltd</h2>
+            <h2 id="footer-map-title">Zenvo Technologies (Pvt) Ltd</h2>
           </div>
           <div className="footer-map-frame">
             <iframe
