@@ -228,6 +228,7 @@ type TeamMember = {
   color: string;
 };
 
+
 const team: TeamMember[] = [
   {
     initials: 'AA',
@@ -242,7 +243,7 @@ const team: TeamMember[] = [
   {
     initials: 'AA',
     name: 'Ashfaq Ahamed',
-    role: 'FULLSTACK DEVELOPER',
+    role: 'MID-LEVEL FULLSTACK DEVELOPER',
     badge: 'CORE ENG',
     description: 'Architecting end-to-end web platforms with high-throughput cloud backends and responsive UIs.',
     skills: ['Next js', 'Node js', 'APIs', 'TypeScript', 'Python'],
@@ -252,18 +253,18 @@ const team: TeamMember[] = [
   {
     initials: 'JR',
     name: 'Zaid',
-    role: 'SENIOR FULLSTACK DEVELOPER',
+    role: 'JUNIOR FULLSTACK DEVELOPER',
     badge: 'CORE ENG',
     description: 'Engineering interactive frontend interfaces, state management, and robust microservices.',
-    skills: ['Next js', 'Fullstack', 'APIs', 'TypeScript','Python'],
+    skills: ['Next js', 'GO', 'APIs', 'TypeScript','Python'],
     image: 'https://i.ibb.co/FqbjQ4bt/Professional-Blue-Suit-Portrait.png',
     color: 'from-[#6ca4f3] to-[#1668e8]',
   },
   {
     initials: 'KS',
     name: 'Firaz',
-    role: 'JUNIOR DEVELOPER',
-    badge: 'ENGINEERING',
+    role: 'FULLSTACK DEVELOPER',
+    badge: 'CORE ENG',
     description: 'Building clean responsive components, QA automation, and seamless user interaction workflows.',
     skills: ['React', 'JavaScript', 'Python & UI', 'Git'],
     image: 'https://i.ibb.co/fYFXDghm/IMG-1398-1.jpg',
