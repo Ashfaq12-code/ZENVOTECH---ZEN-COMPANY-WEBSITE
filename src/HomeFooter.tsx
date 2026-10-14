@@ -131,7 +131,7 @@ export default function HomeFooter({ showMap = true }: HomeFooterProps) {
         </div>
       </div>
       <div className="home-footer-bottom">
-        <span>© {new Date().getFullYear()} <strong>Zenvora Technologies (Pvt) Ltd</strong> — Powered by <a className="footer-credit-link" href="https://techalh.com" target="_blank" rel="noopener noreferrer">Techalh</a>.</span>
+        <span>© {new Date().getFullYear()} <strong>Zenvo Technologies (Pvt) Ltd</strong> — Powered by <a className="footer-credit-link" href="https://techalh.com" target="_blank" rel="noopener noreferrer">Techalh</a>.</span>
       </div>
       <div className={`floating-social-menu${heroVisible ? ' is-hero-visible' : ''}`}>
         <div className="floating-social-items">
