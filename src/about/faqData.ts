@@ -1,11 +1,11 @@
-import type { FaqEntry } from '@/lib/structuredData';
 import { SITE, formatAddress } from '@/config/site';
+import type { FaqEntry } from '@/lib/structuredData';
 
 // Plain text only: the same strings feed the visible FAQ and the FAQPage JSON-LD.
 export const aboutFaqs: readonly FaqEntry[] = [
   {
     question: `What is ${SITE.name}?`,
-    answer: `${SITE.name} is a software development company based in Kandy, Sri Lanka. We build websites, mobile apps, custom software and business automation for startups and small and medium-sized businesses.`,
+    answer: `${SITE.name} is a software development company based in Sri lanka, Sri Lanka. We build websites, mobile apps, custom software and business automation for startups and small and medium-sized businesses.`,
   },
   {
     question: `Where is ${SITE.name} based?`,

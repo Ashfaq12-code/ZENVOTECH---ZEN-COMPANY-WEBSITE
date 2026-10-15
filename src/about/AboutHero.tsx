@@ -1,5 +1,5 @@
-import { ArrowDown } from 'lucide-react';
 import { SITE } from '@/config/site';
+import { ArrowDown } from 'lucide-react';
 import { HeroVideo } from './HeroVideo';
 
 export function AboutHero() {
@@ -18,7 +18,7 @@ export function AboutHero() {
       <h1 className="text-[clamp(1.5rem,7vw,2rem)] md:text-5xl lg:text-6xl font-bold text-[#0d1b2e] leading-tight mb-6 max-w-4xl">
         About {SITE.name} —{' '}
         <span className="text-[#1668e8]">
-          Software development company<br className="hidden sm:block" /> in Kandy, Sri Lanka
+          Software development company<br className="hidden sm:block" />in Sri Lanka
         </span>
       </h1>
 
