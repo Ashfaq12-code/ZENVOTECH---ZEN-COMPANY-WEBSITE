@@ -394,13 +394,6 @@
 .review-success > span { border-color: #1668e84d; background: #eaf2ff; color: #1668e8; }
 .admin-config-error code { color: #1668e8; }
 .admin-shell :focus-visible { outline-color: #1668e8; }
-@media (prefers-reduced-motion: reduce) {
-  .admin-activity-drawer, .admin-drawer-backdrop { transition-duration: .01ms; }
-  .admin-auth-mode-content,
-  .admin-auth-setup-fields,
-  .admin-auth-login-fields,
-  .admin-auth-toggle button { animation: none; transition: none; }
-}
 
 /* ── Project Type Selector ───────────────────────────────── */
 .admin-form-type-label { display: flex; flex-direction: column; gap: 6px; }

@@ -1,0 +1,16 @@
+{
+  "name": "Zenvo Tech",
+  "short_name": "Zenvo Tech",
+  "description": "Software agency in Kandy, Sri Lanka: websites, mobile apps, custom software and business automation.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "lang": "en-LK",
+  "theme_color": "#070908",
+  "background_color": "#070908",
+  "icons": [
+    { "src": "/media/brand/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/media/brand/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/media/brand/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

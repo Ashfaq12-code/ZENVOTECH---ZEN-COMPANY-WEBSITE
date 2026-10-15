@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Facebook, Instagram, Linkedin } from 'lucide-react';
+import { serviceLinks } from '@/config/navigation';
+import { formatAddress, SITE } from '@/config/site';
 
 type HomeFooterProps = {
   showMap?: boolean;
@@ -11,7 +13,7 @@ export default function HomeFooter({ showMap = true, onWhatsAppClick }: HomeFoot
   const [heroVisible, setHeroVisible] = useState(false);
 
   useEffect(() => {
-    const word = 'zenvotech';
+    const word = SITE.name;
     let characterIndex = 0;
     let deleting = false;
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -76,12 +78,12 @@ export default function HomeFooter({ showMap = true, onWhatsAppClick }: HomeFoot
         <section className="footer-map-section" aria-labelledby="footer-map-title">
           <div className="footer-map-heading">
             <p className="eyebrow">Find us</p>
-            <h2 id="footer-map-title">Zenvo Technologies</h2>
+            <h2 id="footer-map-title">{SITE.name}</h2>
           </div>
           <div className="footer-map-frame">
             <iframe
               className="footer-map-embed"
-              title="Google Maps listing for Zenvora Technologies (Pvt) Ltd in Kandy, Sri Lanka"
+              title={`Google Maps listing for ${SITE.name} in Kandy, Sri Lanka`}
               src="https://www.google.com/maps?output=embed&q=Zenvora+Technologies+%28Pvt%29+Ltd%2C+Kandy+20000&z=18"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -95,53 +97,56 @@ export default function HomeFooter({ showMap = true, onWhatsAppClick }: HomeFoot
       </div>
       <div className="home-footer-inner">
         <div className="home-footer-brand">
-          <a href="#top" className="brand-mark home-footer-logo" aria-label="zenvotech home">
-            <img className="brand-logo" src="https://i.ibb.co/GQmp6ZZs/Screenshot-2026-10-03-124656-removebg-preview-1.png" alt="zenvotech logo" />
+          <a href="/" className="brand-mark home-footer-logo" aria-label={`${SITE.name} home`}>
+            <img className="brand-logo" src="https://i.ibb.co/GQmp6ZZs/Screenshot-2026-10-03-124656-removebg-preview-1.png" alt={`${SITE.name} logo`} />
             <span className="brand-name">ZENVO<span>TECH</span></span>
           </a>
-          <p>Digital experiences for ambitious teams.</p>
+          <p>Software agency in Kandy, Sri Lanka</p>
         </div>
         <div className="home-footer-grid">
           <div className="home-footer-column">
-            <h2>About zenvotech</h2>
+            <h2>About {SITE.name}</h2>
             <p>
               We build websites, applications, and software that help businesses work smarter and grow with confidence.
             </p>
           </div>
           <nav className="home-footer-column" aria-label="Explore services">
             <h2>Our Services</h2>
-            <a href="/services/website-development">Web development</a>
-            <a href="/services/app-development">App development</a>
-            <a href="/#services">Software development</a>
-            <a href="/#services">Automation</a>
+            {serviceLinks.map(({ label, href }) => (
+              <a key={href} href={href}>{label}</a>
+            ))}
           </nav>
           <nav className="home-footer-column" aria-label="Quick links">
             <h2>Quick Links</h2>
-            <a href="#top">Home</a>
-            <a href="#about">About</a>
-            <a href="#works">Works</a>
-            <a href="#contact">Contact</a>
+            <a href="/">Home</a>
+            <a href="/who-we-are">About</a>
+            <a href="/#works">Works</a>
+            <a href="/#contact">Contact</a>
           </nav>
           <div className="home-footer-column">
             <h2>Get in Touch</h2>
             <p>Have a project in mind? Let’s talk about how we can help.</p>
-            <a href="mailto:zenvotech24@gmail.com">zenvotech24@gmail.com</a>
-            <a href="#contact">Send us a message</a>
-            <address className="home-footer-address">No. 02, Kandy, Sri Lanka</address>
+            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+            <a href={`tel:${SITE.phone.e164}`}>{SITE.phone.display}</a>
+            <a href="/#contact">Send us a message</a>
+            <address className="home-footer-address">{formatAddress()}</address>
           </div>
         </div>
       </div>
       <div className="home-footer-bottom">
-        <span>© {new Date().getFullYear()} <strong>Zenvo Technologies</strong> — Powered by <a className="footer-credit-link" href="https://techalh.com" target="_blank" rel="noopener noreferrer">Techalh</a>.</span>
+        <span>© {new Date().getFullYear()} <strong>{SITE.name}</strong></span>
+        <small className="block text-xs opacity-70">
+          Powered by <a className="footer-credit-link" href="https://techalh.com" target="_blank" rel="noopener noreferrer">Tech ALH</a>
+        </small>
       </div>
       <div className={`floating-social-menu${heroVisible ? ' is-hero-visible' : ''}`}>
         <div className="floating-social-items">
           <a
             className="floating-social-link"
-            href="https://www.instagram.com/zenvo_technologies?srtk=ZjU1M3U5N3IzdHZr"
+            href={SITE.socials.instagram}
             target="_blank"
             rel="noreferrer"
-            aria-label="Visit zenvotech on Instagram"
+            aria-label={`Visit ${SITE.name} on Instagram`}
             tabIndex={0}
             title="Instagram"
           >
@@ -149,10 +154,10 @@ export default function HomeFooter({ showMap = true, onWhatsAppClick }: HomeFoot
           </a>
           <a
             className="floating-social-link"
-            href="https://www.tiktok.com/@zenvotechnologies7?_r=1&_t=ZS-9AY0yoyCZYi"
+            href={SITE.socials.tiktok}
             target="_blank"
             rel="noreferrer"
-            aria-label="Visit zenvotech on TikTok"
+            aria-label={`Visit ${SITE.name} on TikTok`}
             tabIndex={0}
             title="TikTok"
           >
@@ -160,12 +165,13 @@ export default function HomeFooter({ showMap = true, onWhatsAppClick }: HomeFoot
               <path d="M19.6 7.2a6.8 6.8 0 0 1-4.2-1.5v8.1a6.2 6.2 0 1 1-5.4-6.1v3.2a3 3 0 1 0 2.2 2.9V2.5h3.2c.2 2.1 1.8 3.8 4.2 4.1v.6Z" fill="currentColor" />
             </svg>
           </a>
+          {/* PI! NEED DATA: LinkedIn company page URL */}
           <a
             className="floating-social-link"
-            href="https://www.linkedin.com/in/zenvo-tech-328906443/"
+            href={SITE.socials.linkedin}
             target="_blank"
             rel="noreferrer"
-            aria-label="Visit zenvotech on LinkedIn"
+            aria-label={`Visit ${SITE.name} on LinkedIn`}
             tabIndex={0}
             title="LinkedIn"
           >
@@ -173,10 +179,10 @@ export default function HomeFooter({ showMap = true, onWhatsAppClick }: HomeFoot
           </a>
           <a
             className="floating-social-link"
-            href="https://web.facebook.com/people/Zenvo-Tech/61595053245347/?mibextid=wwXIfr&rdid=G0eTfICoe5ekvXeq&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F19FJuDzG2U%2F%3Fmibextid%3DwwXIfr%26_rdc%3D1%26_rdr"
+            href={SITE.socials.facebook}
             target="_blank"
             rel="noreferrer"
-            aria-label="Visit zenvotech on Facebook"
+            aria-label={`Visit ${SITE.name} on Facebook`}
             tabIndex={0}
             title="Facebook"
           >
@@ -187,7 +193,7 @@ export default function HomeFooter({ showMap = true, onWhatsAppClick }: HomeFoot
               type="button"
               className="floating-social-link floating-social-whatsapp"
               onClick={onWhatsAppClick}
-              aria-label="Chat with zenvotech on WhatsApp"
+              aria-label={`Chat with ${SITE.name} on WhatsApp`}
               title="WhatsApp"
             >
               <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
@@ -197,10 +203,10 @@ export default function HomeFooter({ showMap = true, onWhatsAppClick }: HomeFoot
           ) : (
             <a
               className="floating-social-link floating-social-whatsapp"
-              href="https://wa.me/742363574"
+              href={SITE.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Chat with zenvotech on WhatsApp"
+              aria-label={`Chat with ${SITE.name} on WhatsApp`}
               title="WhatsApp"
             >
               <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">

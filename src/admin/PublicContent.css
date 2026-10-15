@@ -13,11 +13,8 @@
   transition: transform .2s ease, background .2s ease;
 }
 .public-review-button:hover { transform: translateY(-2px); background: #eaf2ff; }
-.project-added-time { color: #768cb0; font: 9px 'DM Mono', monospace; }
-.project-recent-badge { padding: 4px 7px; border: 1px solid #1668e830; border-radius: 4px; background: #eaf2ff; color: #1668e8; font: 700 9px 'DM Mono', monospace; text-transform: uppercase; }
 .project-name-link > a { color: var(--brand-blue-dark); }
 .project-name-link > a:hover { color: var(--brand-blue); }
-.project-name-link .project-recent-badge { margin-left: 2px; }
 .project-name-link > img { flex: 0 0 20px; }
 .project-screen-meta {
   position: absolute;
@@ -44,7 +41,6 @@
 .project-screen-time { background: rgba(12, 28, 51, .82); }
 .published-content-error { max-width: 1120px; margin: 0 auto 14px; color: #a84a4a; font-size: 11px; }
 .reviews-section .published-content-error { color: #fff; }
-.client-review-stars { color: #ffd44a !important; letter-spacing: 1px; }
 .review-modal-backdrop .admin-alert { color: #ff9ba3; }
 .reviews-rows { display: flex; flex-direction: column; gap: 16px; padding: 12px 0 32px; }
 .reviews-row-window { width: 100%; overflow: hidden; }
@@ -199,11 +195,4 @@
   .reviews-section .review-card-avatar-fallback { flex: 0 0 34px; width: 34px; height: 34px; }
   .reviews-section .review-card-name { font-size: 12.5px; }
   .reviews-section .review-card-quote { font-size: 11px; -webkit-line-clamp: 2; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reviews-row-track,
-  .reviews-row-track--reverse {
-    animation-duration: 120s !important;
-  }
 }

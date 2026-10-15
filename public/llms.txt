@@ -1,0 +1,21 @@
+# Zenvo Tech
+
+> Zenvo Tech is a software agency in Kandy, Sri Lanka that builds websites, mobile apps, custom software and business automation for clients in Sri Lanka and worldwide.
+
+## Services
+
+- [Website development](https://zenvotech.lk/services/website-development): fast, responsive custom websites for businesses.
+- [Mobile app development](https://zenvotech.lk/services/app-development): iOS and Android apps, from product design and development to release and ongoing support.
+- [Custom software development](https://zenvotech.lk/services/software-development): business software, desktop applications and scalable platforms tailored to your workflows.
+- [Business process automation](https://zenvotech.lk/services/automation): integrations, APIs and custom tools that automate repetitive work.
+
+## About
+
+- [Who we are](https://zenvotech.lk/who-we-are): the team behind Zenvo Tech, based in Kandy, Sri Lanka.
+- [Home](https://zenvotech.lk/): services, recent work, client reviews, FAQ and contact form.
+
+## Contact
+
+- Address: No. 02, Kandy 20000, Central Province, Sri Lanka
+- Phone and WhatsApp: +94 74 236 3574 (https://wa.me/94742363574)
+- Email: hello@zenvotech.lk

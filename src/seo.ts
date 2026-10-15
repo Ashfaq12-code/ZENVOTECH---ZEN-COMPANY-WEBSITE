@@ -1,112 +1,300 @@
-const siteUrl = 'https://zenvora.lk';
-const organizationId = `${siteUrl}/#organization`;
+// No DOM access at module top level and a relative import (no Vite alias), so a
+// Node prerender step can import buildRouteHead and write static <head> per route.
+import { SITE } from './config/site';
 
-const pageMetadata = {
+type RouteKind = 'home' | 'about' | 'service' | 'private' | 'notFound';
+
+type RouteMeta = {
+  path: string;
+  kind: RouteKind;
+  title: string;
+  description: string | null;
+  breadcrumb?: string;
+  serviceType?: string;
+};
+
+type JsonLdNode = Record<string, unknown>;
+
+export type RouteHead = {
+  title: string;
+  description: string | null;
+  canonical: string | null;
+  robots: string;
+  alternates: readonly { hreflang: string; href: string }[];
+  og: {
+    type: 'website';
+    siteName: string;
+    locale: string;
+    title: string;
+    description: string | null;
+    url: string | null;
+    image: string;
+    imageAlt: string;
+    imageWidth: number;
+    imageHeight: number;
+    imageType: string;
+  };
+  twitter: {
+    card: 'summary_large_image';
+    title: string;
+    description: string | null;
+    image: string;
+    imageAlt: string;
+  };
+  jsonLd: readonly JsonLdNode[];
+};
+
+const siteUrl = SITE.url;
+const organizationId = `${siteUrl}/#organization`;
+const websiteId = `${siteUrl}/#website`;
+const ogImage = {
+  url: `${siteUrl}/media/brand/og-image.png`,
+  alt: `${SITE.name} logo`,
+  width: 1200,
+  height: 630,
+  type: 'image/png',
+};
+const areaServed = [{ '@type': 'Country', name: SITE.address.countryName }, { '@type': 'Place', name: 'Worldwide' }];
+
+export const seoRoutes = {
   home: {
     path: '/',
-    title: 'Web, Mobile & Software Development in Sri Lanka | Zenvotech',
+    kind: 'home',
+    title: `Web, App & Software Agency in Kandy, Sri Lanka | ${SITE.name}`,
     description:
-      'Zenvotech builds custom websites, mobile apps, business software, and automation for companies in Sri Lanka and worldwide.',
+      `${SITE.name} is a software agency in Kandy, Sri Lanka. We build websites, mobile apps, custom software and business automation for clients worldwide.`,
   },
   about: {
     path: '/who-we-are',
-    title: 'About Zenvotech | Digital Solutions Company in Sri Lanka',
+    kind: 'about',
+    title: `About ${SITE.name} | Software Agency in Kandy, Sri Lanka`,
     description:
-      'Meet Zenvotech: a digital technology team delivering thoughtful web, mobile, software, and automation solutions for growing businesses.',
+      `Meet ${SITE.name}, a software agency in Kandy, Sri Lanka. We plan, build and support websites, mobile apps, custom software and automation for you.`,
+    breadcrumb: 'Who we are',
   },
   websites: {
     path: '/services/website-development',
-    title: 'Website Development in Sri Lanka | Zenvotech',
+    kind: 'service',
+    title: `Website Development in Kandy, Sri Lanka | ${SITE.name}`,
     description:
-      'Get a fast, responsive website built for your business. Zenvotech delivers custom website design and development in Sri Lanka.',
+      `Get a fast, responsive website for your business. ${SITE.name} designs and builds custom websites in Kandy, Sri Lanka, for clients here and worldwide.`,
+    breadcrumb: 'Website development',
+    serviceType: 'Website development',
   },
   apps: {
     path: '/services/app-development',
-    title: 'Mobile App Development in Sri Lanka | Zenvotech',
+    kind: 'service',
+    title: `Mobile App Development in Kandy, Sri Lanka | ${SITE.name}`,
     description:
-      'Plan and build iOS and Android applications with Zenvotech, from product design and development to launch and ongoing support.',
+      `Plan, build and launch iOS and Android apps with ${SITE.name} in Kandy, Sri Lanka, from product design and development to release and ongoing support.`,
+    breadcrumb: 'App development',
+    serviceType: 'Mobile app development',
   },
   software: {
     path: '/services/software-development',
-    title: 'Custom Software Development in Sri Lanka | Zenvotech',
+    kind: 'service',
+    title: `Custom Software Development in Sri Lanka | ${SITE.name}`,
     description:
-      'Zenvotech develops custom business software, desktop applications, and scalable platforms tailored to your workflows.',
+      `${SITE.name} builds custom business software, desktop applications and scalable platforms in Kandy, Sri Lanka, tailored to the way your team works.`,
+    breadcrumb: 'Software development',
+    serviceType: 'Custom software development',
   },
   automation: {
     path: '/services/automation',
-    title: 'Business Process Automation in Sri Lanka | Zenvotech',
+    kind: 'service',
+    title: `Business Automation in Kandy, Sri Lanka | ${SITE.name}`,
     description:
-      'Automate repetitive business workflows with integrations, APIs, and custom solutions from Zenvotech.',
+      `Automate repetitive work with integrations, APIs and custom tools from ${SITE.name} in Kandy, Sri Lanka, so your team spends less time on manual tasks.`,
+    breadcrumb: 'Automation',
+    serviceType: 'Business process automation',
+  },
+  notFound: {
+    path: '',
+    kind: 'notFound',
+    title: `Page not found | ${SITE.name}`,
+    description:
+      `The page you were looking for does not exist. Go back to the ${SITE.name} home page to see our web, app, software and automation services.`,
   },
   private: {
     path: '',
-    title: 'Private page | Zenvotech',
-    description: '',
+    kind: 'private',
+    title: `Private page | ${SITE.name}`,
+    description: null,
   },
-} as const;
+} as const satisfies Record<string, RouteMeta>;
 
-export type SeoPage = keyof typeof pageMetadata;
+export type SeoPage = keyof typeof seoRoutes;
 
-function setMeta(attribute: 'name' | 'property', key: string, content: string) {
-  let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
-  if (!element) {
-    element = document.createElement('meta');
-    element.setAttribute(attribute, key);
-    document.head.append(element);
-  }
-  element.content = content;
+const indexableKinds: readonly RouteKind[] = ['home', 'about', 'service'];
+
+export function buildRouteHead(page: SeoPage): RouteHead {
+  const route: RouteMeta = seoRoutes[page];
+  const indexable = indexableKinds.includes(route.kind);
+  const canonical = indexable ? absoluteUrl(route.path) : null;
+  return {
+    title: route.title,
+    description: route.description,
+    canonical,
+    robots: indexable ? 'index, follow, max-image-preview:large' : 'noindex, nofollow',
+    alternates: canonical
+      ? [
+          { hreflang: 'en-LK', href: canonical },
+          { hreflang: 'x-default', href: canonical },
+        ]
+      : [],
+    ...buildSocial(route, canonical),
+    jsonLd: canonical ? buildJsonLd(route, canonical) : [],
+  };
+}
+
+function buildSocial(route: RouteMeta, canonical: string | null): Pick<RouteHead, 'og' | 'twitter'> {
+  return {
+    og: {
+      type: 'website',
+      siteName: SITE.name,
+      locale: 'en_LK',
+      title: route.title,
+      description: route.description,
+      url: canonical,
+      image: ogImage.url,
+      imageAlt: ogImage.alt,
+      imageWidth: ogImage.width,
+      imageHeight: ogImage.height,
+      imageType: ogImage.type,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: route.title,
+      description: route.description,
+      image: ogImage.url,
+      imageAlt: ogImage.alt,
+    },
+  };
+}
+
+function absoluteUrl(path: string): string {
+  return path === '/' ? `${siteUrl}/` : `${siteUrl}${path}`;
+}
+
+function buildJsonLd(route: RouteMeta, canonical: string): JsonLdNode[] {
+  const nodes: JsonLdNode[] = [buildWebPage(route, canonical)];
+  if (route.breadcrumb) nodes.push(buildBreadcrumb(route.breadcrumb, canonical, route.kind === 'service'));
+  if (route.serviceType) nodes.push(buildService(route, route.serviceType, canonical));
+  return nodes;
+}
+
+function buildWebPage(route: RouteMeta, canonical: string): JsonLdNode {
+  return {
+    '@context': 'https://schema.org',
+    '@type': route.kind === 'about' ? 'AboutPage' : 'WebPage',
+    '@id': `${canonical}#webpage`,
+    url: canonical,
+    name: route.title,
+    description: route.description,
+    inLanguage: 'en-LK',
+    isPartOf: { '@id': websiteId },
+    about: { '@id': organizationId },
+    primaryImageOfPage: { '@type': 'ImageObject', url: ogImage.url },
+    ...(route.breadcrumb ? { breadcrumb: { '@id': `${canonical}#breadcrumb` } } : {}),
+    creator: { '@id': 'https://techalh.com/#organization' },
+  };
+}
+
+// Mirrors the visible trail: service pages read Home > Services (home section) > page.
+function buildBreadcrumb(name: string, canonical: string, isService: boolean): JsonLdNode {
+  const services = isService ? [{ name: 'Services', item: `${siteUrl}/#services` }] : [];
+  const trail = [{ name: 'Home', item: `${siteUrl}/` }, ...services, { name, item: canonical }];
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': `${canonical}#breadcrumb`,
+    itemListElement: trail.map((step, index) => ({ '@type': 'ListItem', position: index + 1, ...step })),
+  };
+}
+
+function buildService(route: RouteMeta, serviceType: string, canonical: string): JsonLdNode {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${canonical}#service`,
+    name: serviceType,
+    serviceType,
+    description: route.description,
+    url: canonical,
+    provider: { '@id': organizationId },
+    areaServed,
+  };
 }
 
 export function setPageSeo(page: SeoPage) {
-  const metadata = pageMetadata[page];
-  const isPrivate = page === 'private';
-  const canonicalUrl = isPrivate ? '' : new URL(metadata.path, siteUrl).toString();
+  const head = buildRouteHead(page);
+  document.title = head.title;
+  setMeta('name', 'description', head.description);
+  setMeta('name', 'robots', head.robots);
+  setMeta('property', 'og:type', head.og.type);
+  setMeta('property', 'og:site_name', head.og.siteName);
+  setMeta('property', 'og:locale', head.og.locale);
+  setMeta('property', 'og:title', head.og.title);
+  setMeta('property', 'og:description', head.og.description);
+  setMeta('property', 'og:url', head.og.url);
+  setMeta('property', 'og:image', head.og.image);
+  setMeta('property', 'og:image:alt', head.og.imageAlt);
+  setMeta('property', 'og:image:width', String(head.og.imageWidth));
+  setMeta('property', 'og:image:height', String(head.og.imageHeight));
+  setMeta('property', 'og:image:type', head.og.imageType);
+  setMeta('name', 'twitter:card', head.twitter.card);
+  setMeta('name', 'twitter:title', head.twitter.title);
+  setMeta('name', 'twitter:description', head.twitter.description);
+  setMeta('name', 'twitter:image', head.twitter.image);
+  setMeta('name', 'twitter:image:alt', head.twitter.imageAlt);
+  setCanonical(head.canonical);
+  setAlternates(head.alternates);
+  setPageJsonLd(head.jsonLd);
+}
 
-  document.title = metadata.title;
-  setMeta('name', 'description', metadata.description);
-  setMeta('name', 'robots', isPrivate ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
-  setMeta('property', 'og:type', 'website');
-  setMeta('property', 'og:site_name', 'Zenvotech');
-  setMeta('property', 'og:title', metadata.title);
-  setMeta('property', 'og:description', metadata.description);
-  setMeta('property', 'og:url', canonicalUrl);
-  setMeta('name', 'twitter:card', 'summary_large_image');
-  setMeta('name', 'twitter:title', metadata.title);
-  setMeta('name', 'twitter:description', metadata.description);
-
-  let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-  if (isPrivate) {
-    canonical?.remove();
-  } else {
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.rel = 'canonical';
-      document.head.append(canonical);
-    }
-    canonical.href = canonicalUrl;
-  }
-
-  const pageSchemaId = 'page-seo-schema';
-  let pageSchema = document.getElementById(pageSchemaId);
-  if (isPrivate) {
-    pageSchema?.remove();
+// null removes the tag, so private and 404 pages never ship empty content.
+function setMeta(attribute: 'name' | 'property', key: string, content: string | null) {
+  const existing = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
+  if (content === null) {
+    existing?.remove();
     return;
   }
+  const element = existing ?? document.createElement('meta');
+  element.setAttribute(attribute, key);
+  element.content = content;
+  if (!existing) document.head.append(element);
+}
 
-  if (!pageSchema) {
-    pageSchema = document.createElement('script');
-    pageSchema.id = pageSchemaId;
-    pageSchema.setAttribute('type', 'application/ld+json');
-    document.head.append(pageSchema);
+function setCanonical(href: string | null) {
+  const existing = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (href === null) {
+    existing?.remove();
+    return;
   }
-  pageSchema.textContent = JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: metadata.title,
-    description: metadata.description,
-    url: canonicalUrl,
-    isPartOf: { '@id': `${siteUrl}/#website` },
-    about: { '@id': organizationId },
-    creator: { '@id': 'https://techalh.com/#organization' },
+  const element = existing ?? document.createElement('link');
+  element.rel = 'canonical';
+  element.href = href;
+  if (!existing) document.head.append(element);
+}
+
+function setAlternates(alternates: RouteHead['alternates']) {
+  document.head.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link) => link.remove());
+  alternates.forEach(({ hreflang, href }) => {
+    const link = document.createElement('link');
+    link.rel = 'alternate';
+    link.hreflang = hreflang;
+    link.href = href;
+    document.head.append(link);
   });
+}
+
+function setPageJsonLd(nodes: RouteHead['jsonLd']) {
+  const scriptId = 'page-seo-schema';
+  document.getElementById(scriptId)?.remove();
+  if (nodes.length === 0) return;
+  const script = document.createElement('script');
+  script.id = scriptId;
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(nodes);
+  document.head.append(script);
 }

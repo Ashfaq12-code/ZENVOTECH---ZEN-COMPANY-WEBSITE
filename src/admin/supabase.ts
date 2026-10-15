@@ -1,13 +1,25 @@
-import { createClient } from '@supabase/supabase-js';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { createDeferredClient } from './deferredSupabase';
+import { supabaseConfigured } from './supabaseConfig';
 
-const supabaseUrl =
-  import.meta.env.VITE_SUPABASE_URL || 'https://cbstalyfyzlpzedwnydb.supabase.co';
-const supabaseAnonKey =
-  import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_DFsRwoBaiRgtvGNygoxOYg_EvG5X-Ey';
+export { supabaseConfigured };
 
-export const supabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
-export const supabase = supabaseConfigured
-  ? createClient(supabaseUrl, supabaseAnonKey)
+let clientPromise: Promise<SupabaseClient | null> | null = null;
+
+/** Loads supabase-js on first use and returns the shared client (memoised). */
+export function getSupabase(): Promise<SupabaseClient | null> {
+  clientPromise ??= import('./supabaseClient')
+    .then(({ supabaseClient }) => supabaseClient)
+    .catch((caught: unknown) => {
+      clientPromise = null;
+      throw caught;
+    });
+  return clientPromise;
+}
+
+/** @deprecated Lazy stand-in kept for existing call sites; prefer `await getSupabase()`. */
+export const supabase: SupabaseClient | null = supabaseConfigured
+  ? createDeferredClient(getSupabase)
   : null;
 
 export type CallClickLog = {
@@ -18,18 +30,12 @@ export type CallClickLog = {
 };
 
 export async function recordCallClick(clickedNumber: string): Promise<void> {
-  if (!supabase) {
+  const client = await getSupabase();
+  if (!client) {
     throw new Error('Call tracking is not configured.');
   }
 
-  const { error } = await supabase.from('client_reviews').insert([
-    {
-      name: `Call Tap: ${clickedNumber}`,
-      country: 'Direct Call',
-      rating: 5,
-      body: `__CALL_CLICK__:${clickedNumber}`,
-    },
-  ]);
+  const { error } = await client.from('call_click_logs').insert({ clicked_number: clickedNumber });
 
   if (error) {
     throw new Error(`Call click could not be saved: ${error.message}`);
@@ -41,6 +47,8 @@ export type AdminProject = {
   name: string;
   country: string;
   image_url: string;
+  image_width?: number | null;
+  image_height?: number | null;
   live_url: string;
   project_type: 'web' | 'app' | 'desktop';
   created_by_admin?: string;
@@ -70,66 +78,51 @@ export async function callAdminFunction<T>(
   action: string,
   payload: Record<string, unknown> = {},
 ): Promise<T> {
-  if (!supabase) {
+  const client = await getSupabase();
+  if (!client) {
     throw new Error('Admin services are not configured. Add the Supabase environment variables.');
   }
 
-  const { data, error } = await supabase.functions.invoke('admin-api', {
+  const { data, error } = await client.functions.invoke<T>('admin-api', {
     body: { action, ...payload },
   });
 
   if (error) {
-    let message = (error as Error)?.message || 'Edge Function returned an error.';
-
-    const context = (error && typeof error === 'object' && 'context' in error)
-      ? (error as { context?: unknown }).context
-      : null;
-
-    if (context && typeof context === 'object') {
-      try {
-        const resp = context as Response;
-        let responseBody: unknown;
-
-        if (typeof resp.json === 'function') {
-          try {
-            responseBody = await (typeof resp.clone === 'function' ? resp.clone().json() : resp.json());
-          } catch {
-            if (typeof resp.text === 'function') {
-              responseBody = await (typeof resp.clone === 'function' ? resp.clone().text() : resp.text());
-            }
-          }
-        }
-
-        if (responseBody && typeof responseBody === 'object') {
-          const bodyObj = responseBody as Record<string, unknown>;
-          if (typeof bodyObj.error === 'string') {
-            message = bodyObj.error;
-          } else if (typeof bodyObj.message === 'string') {
-            message = bodyObj.message;
-          }
-        } else if (typeof responseBody === 'string' && responseBody.trim().length > 0) {
-          try {
-            const parsed = JSON.parse(responseBody);
-            if (parsed && typeof parsed.error === 'string') {
-              message = parsed.error;
-            } else if (parsed && typeof parsed.message === 'string') {
-              message = parsed.message;
-            } else {
-              message = responseBody;
-            }
-          } catch {
-            message = responseBody;
-          }
-        }
-      } catch {
-        // Fallback to error message
-      }
-    }
-
-    throw new Error(message);
+    const fallback = error instanceof Error && error.message ? error.message : 'Edge Function returned an error.';
+    const context: unknown = typeof error === 'object' && error !== null && 'context' in error ? error.context : null;
+    throw new Error((await readErrorResponse(context)) ?? fallback);
   }
-  if (data?.error) throw new Error(String(data.error));
-  return data as T;
+  if (isRecord(data) && data.error) throw new Error(messageFromBody(data) ?? String(data.error));
+  if (data === null) throw new Error('Admin API returned an empty response.');
+  return data;
+}
+
+async function readErrorResponse(context: unknown): Promise<string | null> {
+  if (!(context instanceof Response)) return null;
+  try {
+    const text = await context.clone().text();
+    if (!text.trim()) return null;
+    try {
+      return messageFromBody(JSON.parse(text)) ?? text;
+    } catch {
+      return text;
+    }
+  } catch {
+    return null;
+  }
+}
+
+// Accepts both the legacy `{ error: string }` and the `{ error: { code, message } }` shapes.
+function messageFromBody(body: unknown): string | null {
+  if (!isRecord(body)) return null;
+  const { error, message } = body;
+  if (typeof error === 'string') return error;
+  if (isRecord(error) && typeof error.message === 'string') return error.message;
+  return typeof message === 'string' ? message : null;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
 }
 
 export function getPasswordStrength(password: string): number {

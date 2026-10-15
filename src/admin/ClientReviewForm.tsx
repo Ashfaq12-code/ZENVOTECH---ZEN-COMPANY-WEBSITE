@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { LoaderCircle, MessageSquareText, Star, X } from 'lucide-react';
-import { supabase, supabaseConfigured } from './supabase';
+import { SITE } from '@/config/site';
+import { getSupabase, supabaseConfigured } from './supabase';
 import './AdminPortal.css';
 
 const countries = ['United States', 'United Kingdom', 'Sri Lanka', 'Canada', 'Australia', 'India', 'United Arab Emirates', 'Germany', 'France', 'Japan', 'Singapore', 'Other'];
@@ -16,13 +17,15 @@ export default function ClientReviewForm({ onClose }: { onClose: () => void }) {
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!supabase) {
+    setSaving(true);
+    setError('');
+    const client = await getSupabase().catch(() => null);
+    if (!client) {
+      setSaving(false);
       setError('Review submissions are unavailable until Supabase is configured.');
       return;
     }
-    setSaving(true);
-    setError('');
-    const { error: insertError } = await supabase.from('client_reviews').insert({
+    const { error: insertError } = await client.from('client_reviews').insert({
       name: name.trim(),
       country,
       rating,
@@ -40,7 +43,7 @@ export default function ClientReviewForm({ onClose }: { onClose: () => void }) {
     <section className="review-modal" role="dialog" aria-modal="true" aria-labelledby="review-modal-title">
       <button className="review-modal-close" aria-label="Close review form" onClick={onClose}><X size={18} /></button>
       {sent ? <div className="review-success"><span><MessageSquareText size={22} /></span><h2 id="review-modal-title">Thank you for sharing.</h2><p>Your review is live on the site and has been shared with the admin team.</p><button className="admin-button admin-button--primary" onClick={onClose}>Done</button></div> : <>
-        <p className="admin-kicker">YOUR EXPERIENCE</p><h2 id="review-modal-title">Add a client review</h2><p className="review-modal-subtitle">Share your experience with the zenvotech team. Your review appears live once submitted.</p>
+        <p className="admin-kicker">YOUR EXPERIENCE</p><h2 id="review-modal-title">Add a client review</h2><p className="review-modal-subtitle">Share your experience with the {SITE.name} team. Your review appears live once submitted.</p>
         {!supabaseConfigured && <p className="admin-alert admin-alert--error">Review submissions are unavailable until Supabase is configured.</p>}
         <form className="admin-form review-submit-form" onSubmit={submit}>
           <label>Your name<input value={name} onChange={(event) => setName(event.target.value)} required maxLength={80} /></label>

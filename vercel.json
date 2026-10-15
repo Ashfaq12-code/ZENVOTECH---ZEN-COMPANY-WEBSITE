@@ -1,8 +1,189 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "zenvora.lk"
+        }
+      ],
+      "destination": "https://zenvotech.lk/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.zenvora.lk"
+        }
+      ],
+      "destination": "https://zenvotech.lk/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.zenvotech.lk"
+        }
+      ],
+      "destination": "https://zenvotech.lk/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/website-development",
+      "destination": "/services/website-development",
+      "permanent": true
+    },
+    {
+      "source": "/app-development",
+      "destination": "/services/app-development",
+      "permanent": true
+    },
+    {
+      "source": "/mobile-app-development",
+      "destination": "/services/app-development",
+      "permanent": true
+    },
+    {
+      "source": "/services/mobile-app-development",
+      "destination": "/services/app-development",
+      "permanent": true
+    },
+    {
+      "source": "/software-development",
+      "destination": "/services/software-development",
+      "permanent": true
+    },
+    {
+      "source": "/automation",
+      "destination": "/services/automation",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
+      "source": "/admin",
+      "destination": "/admin.html"
+    }
+  ],
+  "headers": [
+    {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Content-Security-Policy-Report-Only",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self'; media-src 'self' blob: https://cbstalyfyzlpzedwnydb.supabase.co; connect-src 'self' https://cbstalyfyzlpzedwnydb.supabase.co wss://cbstalyfyzlpzedwnydb.supabase.co https://api.emailjs.com; frame-src https://www.google.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; manifest-src 'self'; upgrade-insecure-requests"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/media/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/who-we-are",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/services/:slug",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/admin",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/admin/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(.*)\\.vercel\\.app"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
     }
   ]
 }
