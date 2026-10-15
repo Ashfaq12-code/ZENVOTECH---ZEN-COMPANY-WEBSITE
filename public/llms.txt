@@ -1,6 +1,6 @@
 # Zenvo Tech
 
-> Zenvo Tech is a software agency in Sri lanka, Sri Lanka that builds websites, mobile apps, custom software and business automation for clients in Sri Lanka and worldwide.
+> Zenvo Tech is a software agency in Sri lanka that builds websites, mobile apps, custom software and business automation for clients in Sri Lanka and worldwide.
 
 ## Services
 
@@ -11,7 +11,7 @@
 
 ## About
 
-- [Who we are](https://www.zenvotech.lk/who-we-are): the team behind Zenvo Tech, based in Sri lanka, Sri Lanka.
+- [Who we are](https://www.zenvotech.lk/who-we-are): the team behind Zenvo Tech, based in Sri lanka.
 - [Home](https://www.zenvotech.lk/): services, recent work, client reviews, FAQ and contact form.
 
 ## Contact
