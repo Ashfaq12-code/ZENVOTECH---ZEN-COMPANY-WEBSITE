@@ -11,10 +11,6 @@ type SiteConfig = {
   whatsappUrl: string;
   googleProfileUrl: string;
   address: {
-    street: string;
-    locality: string;
-    postalCode: string;
-    region: string;
     country: string;
     countryName: string;
   };
@@ -37,10 +33,6 @@ export const SITE = {
   // Google Business Profile, same place id the google-reviews edge function falls back to.
   googleProfileUrl: 'https://www.google.com/maps/place/?q=place_id:ChIJKRL3TZZp4zoRsudeowa3gIY',
   address: {
-    street: 'No. 02',
-    locality: 'Kandy',
-    postalCode: '20000',
-    region: 'Central Province',
     country: 'LK',
     countryName: 'Sri Lanka',
   },
@@ -59,6 +51,5 @@ export const SITE = {
 } as const satisfies SiteConfig;
 
 export function formatAddress(): string {
-  const { street, locality, postalCode, countryName } = SITE.address;
-  return `${street}, ${locality} ${postalCode}, ${countryName}`;
+  return SITE.address.countryName;
 }

@@ -5,11 +5,11 @@ import type { FaqEntry } from '@/lib/structuredData';
 export const aboutFaqs: readonly FaqEntry[] = [
   {
     question: `What is ${SITE.name}?`,
-    answer: `${SITE.name} is a software development company based in Sri lanka. We build websites, mobile apps, custom software and business automation for startups and small and medium-sized businesses.`,
+    answer: `${SITE.name} is a software development company based in Sri Lanka. We build websites, mobile apps, custom software and business automation for startups and small and medium-sized businesses.`,
   },
   {
     question: `Where is ${SITE.name} based?`,
-    answer: `Our office is at ${formatAddress()}. You can call or WhatsApp us on ${SITE.phone.display}, or email ${SITE.email}.`,
+    answer: `We are based in ${formatAddress()}. You can call or WhatsApp us on ${SITE.phone.display}, or email ${SITE.email}.`,
   },
   {
     question: `Which services does ${SITE.name} offer?`,

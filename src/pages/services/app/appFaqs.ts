@@ -38,6 +38,6 @@ export const appFaqs: readonly ServiceFaq[] = [
   },
   {
     question: 'Where are you based, and do you build apps for clients outside Sri Lanka?',
-    answer: `${SITE.name} is based in ${SITE.address.locality}, ${SITE.address.countryName}. We build apps for businesses in Sri Lanka and abroad.`,
+    answer: `${SITE.name} is based in ${SITE.address.countryName}. We build apps for businesses in Sri Lanka and abroad.`,
   },
 ];

@@ -26,7 +26,7 @@ export function AboutHero() {
 
       {/* PI! NEED DATA: founding year, team size and client count for this intro */}
       <p className="mt-8 text-gray-500 text-base md:text-lg max-w-2xl leading-relaxed mb-10">
-        {SITE.name} is a software development company based in {SITE.address.locality}, {SITE.address.countryName}. We build
+        {SITE.name} is a software development company based in {SITE.address.countryName}. We build
         websites, mobile apps, custom software and business automation for startups and small and medium-sized businesses.
       </p>
 

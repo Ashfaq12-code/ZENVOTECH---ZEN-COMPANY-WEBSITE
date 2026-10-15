@@ -1,4 +1,4 @@
-import { formatAddress, SITE } from '@/config/site';
+import { SITE } from '@/config/site';
 import type { FaqEntry } from '@/lib/structuredData';
 
 // PI! NEED DATA: LKR price ranges and confirmed process steps for new FAQs
@@ -9,7 +9,7 @@ export const faqItems: readonly FaqEntry[] = [
   },
   {
     question: `Where is ${SITE.name} based?`,
-    answer: `Our team is based in ${SITE.address.locality}, ${SITE.address.countryName} (${formatAddress()}). We work with clients in Sri Lanka and abroad.`,
+    answer: `Our team is based in ${SITE.address.countryName}. We work with clients in Sri Lanka and abroad.`,
   },
   {
     question: 'How long does a project take?',

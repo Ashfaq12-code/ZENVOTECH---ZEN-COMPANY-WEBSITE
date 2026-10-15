@@ -14,7 +14,7 @@ export function AppHero() {
       </h1>
       <ServiceHeroVideo sources={[{ src: '/media/app/hero.mp4', type: 'video/mp4' }]} poster="/media/app/hero-poster.webp" shade />
       <p className="webdev-mobile-hero-copy text-lg md:text-xl text-[#4c6c9f] max-w-4xl mx-auto leading-relaxed">
-        <strong className="text-[#1668e8] font-bold">{SITE.name}</strong> is a mobile app development company in {SITE.address.locality}, {SITE.address.countryName}.
+        <strong className="text-[#1668e8] font-bold">{SITE.name}</strong> is a mobile app development company in {SITE.address.countryName}.
         We design and build iOS and Android apps for startups and established businesses, in Sri Lanka and abroad.
         You get clear UX/UI design, backend integrations and cross-platform code, so one app reaches customers on both platforms.
       </p>

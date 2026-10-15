@@ -60,33 +60,33 @@ export const seoRoutes = {
   home: {
     path: '/',
     kind: 'home',
-    title: `Web, App & Software Agency in Sri lanka | ${SITE.name}`,
+    title: `Web, App & Software Agency in Sri Lanka | ${SITE.name}`,
     description:
-      `${SITE.name} is a software agency in Sri lanka. We build websites, mobile apps, custom software and business automation for clients worldwide.`,
+      `${SITE.name} is a software agency in Sri Lanka. We build websites, mobile apps, custom software and business automation for clients worldwide.`,
   },
   about: {
     path: '/who-we-are',
     kind: 'about',
-    title: `About ${SITE.name} | Software Agency in Sri lanka`,
+    title: `About ${SITE.name} | Software Agency in Sri Lanka`,
     description:
-      `Meet ${SITE.name}, a software agency in Sri lanka. We plan, build and support websites, mobile apps, custom software and automation for you.`,
+      `Meet ${SITE.name}, a software agency in Sri Lanka. We plan, build and support websites, mobile apps, custom software and automation for you.`,
     breadcrumb: 'Who we are',
   },
   websites: {
     path: '/services/website-development',
     kind: 'service',
-    title: `Website Development in Sri lanka | ${SITE.name}`,
+    title: `Website Development in Sri Lanka | ${SITE.name}`,
     description:
-      `Get a fast, responsive website for your business. ${SITE.name} designs and builds custom websites in Sri lanka, for clients here and worldwide.`,
+      `Get a fast, responsive website for your business. ${SITE.name} designs and builds custom websites in Sri Lanka, for clients here and worldwide.`,
     breadcrumb: 'Website development',
     serviceType: 'Website development',
   },
   apps: {
     path: '/services/app-development',
     kind: 'service',
-    title: `Mobile App Development in Sri lanka | ${SITE.name}`,
+    title: `Mobile App Development in Sri Lanka | ${SITE.name}`,
     description:
-      `Plan, build and launch iOS and Android apps with ${SITE.name} in Sri lanka, from product design and development to release and ongoing support.`,
+      `Plan, build and launch iOS and Android apps with ${SITE.name} in Sri Lanka, from product design and development to release and ongoing support.`,
     breadcrumb: 'App development',
     serviceType: 'Mobile app development',
   },
@@ -95,16 +95,16 @@ export const seoRoutes = {
     kind: 'service',
     title: `Custom Software Development in Sri Lanka | ${SITE.name}`,
     description:
-      `${SITE.name} builds custom business software, desktop applications and scalable platforms in Sri lanka, tailored to the way your team works.`,
+      `${SITE.name} builds custom business software, desktop applications and scalable platforms in Sri Lanka, tailored to the way your team works.`,
     breadcrumb: 'Software development',
     serviceType: 'Custom software development',
   },
   automation: {
     path: '/services/automation',
     kind: 'service',
-    title: `Business Automation in Sri lanka | ${SITE.name}`,
+    title: `Business Automation in Sri Lanka | ${SITE.name}`,
     description:
-      `Automate repetitive work with integrations, APIs and custom tools from ${SITE.name} in Sri lanka, so your team spends less time on manual tasks.`,
+      `Automate repetitive work with integrations, APIs and custom tools from ${SITE.name} in Sri Lanka, so your team spends less time on manual tasks.`,
     breadcrumb: 'Automation',
     serviceType: 'Business process automation',
   },

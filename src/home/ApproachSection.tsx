@@ -27,7 +27,7 @@ export function ApproachSection() {
     <section className="section-pad approach" id="about">
       <div className="section-heading">
         <p className="eyebrow">The {SITE.name} difference</p>
-        <h2>Software development <span>from Kandy.</span></h2>
+        <h2>Software development <span>from Sri Lanka.</span></h2>
         {/* PI! NEED DATA: concrete facts for this lede (projects delivered, years, team size) */}
         <p className="section-lede">We plan, design, build and support websites, mobile apps, custom software and automation for growing businesses.</p>
       </div>

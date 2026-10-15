@@ -83,8 +83,8 @@ export default function HomeFooter({ showMap = true, onWhatsAppClick }: HomeFoot
           <div className="footer-map-frame">
             <iframe
               className="footer-map-embed"
-              title={`Google Maps listing for ${SITE.name} in Sri lanka`}
-              src="https://www.google.com/maps?output=embed&q=Zenvora+Technologies+%28Pvt%29+Ltd%2C+Kandy+20000&z=18"
+              title={`Google Maps listing for ${SITE.name} in Sri Lanka`}
+              src="https://www.google.com/maps?output=embed&q=Zenvora+Technologies+%28Pvt%29+Ltd&z=18"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
@@ -101,7 +101,7 @@ export default function HomeFooter({ showMap = true, onWhatsAppClick }: HomeFoot
             <img className="brand-logo" src="https://i.ibb.co/GQmp6ZZs/Screenshot-2026-10-03-124656-removebg-preview-1.png" alt={`${SITE.name} logo`} />
             <span className="brand-name">ZENVO<span>TECH</span></span>
           </a>
-          <p>Software agency in Sri lanka</p>
+          <p>Software agency in Sri Lanka</p>
         </div>
         <div className="home-footer-grid">
           <div className="home-footer-column">

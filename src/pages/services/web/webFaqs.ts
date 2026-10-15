@@ -38,6 +38,6 @@ export const webFaqs: readonly ServiceFaq[] = [
   },
   {
     question: 'Where are you based, and do you work with clients outside Sri Lanka?',
-    answer: `${SITE.name} is based in ${SITE.address.locality}, ${SITE.address.countryName}. We build websites for businesses in Sri Lanka and abroad, including clients in the United States, Australia, the United Kingdom, Italy and South Korea.`,
+    answer: `${SITE.name} is based in ${SITE.address.countryName}. We build websites for businesses in Sri Lanka and abroad, including clients in the United States, Australia, the United Kingdom, Italy and South Korea.`,
   },
 ];
