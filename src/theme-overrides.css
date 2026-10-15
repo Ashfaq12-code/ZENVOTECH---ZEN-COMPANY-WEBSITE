@@ -1802,18 +1802,11 @@ h1, h2, h3, .section-heading h2, .reviews-header h2, .contact-copy h2 { color: v
 
 /* Mobile drawer adaptation (below 800px) */
 @media (max-width: 800px) {
-  /* Accordion: animate the grid row (0fr -> 1fr) instead of max-height/margin. */
   .nav-item-dropdown {
-    display: grid;
-    grid-template-rows: auto 0fr;
+    flex-direction: column;
     align-items: stretch;
     width: 100%;
     padding: 0;
-    transition: grid-template-rows 0.3s ease;
-  }
-
-  .nav-item-dropdown.is-mobile-open {
-    grid-template-rows: auto 1fr;
   }
 
   .nav-dropdown-trigger-row {
@@ -1836,48 +1829,36 @@ h1, h2, h3, .section-heading h2, .reviews-header h2, .contact-copy h2 { color: v
     padding: 16px 12px;
   }
 
-  /* No vertical padding/margin here: the 0fr row must be able to reach 0 height.
-     Spacing lives on the first/last link; the left rule is drawn by ::after. */
   .nav-dropdown-menu {
-    position: relative;
+    position: static;
     transform: none !important;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    min-height: 0;
+    max-height: 0;
     overflow: hidden;
     box-shadow: none;
     border: none;
+    border-left: 2px solid #93c5fd;
     border-radius: 0;
-    padding: 0 0 0 16px;
+    padding: 0 0 0 14px;
     margin: 0;
     width: 100% !important;
     background: transparent;
-    transition: opacity 0.25s ease, visibility 0s linear 0.3s;
+    transition: max-height 0.3s ease, opacity 0.25s ease, margin 0.25s ease;
   }
 
   .nav-item-dropdown.is-mobile-open .nav-dropdown-menu {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transition-delay: 0s;
+    max-height: 250px;
+    padding: 6px 0 10px 14px;
+    margin: 4px 0 10px 0;
   }
-
-  .nav-dropdown-menu > :first-child { margin-top: 10px; }
-  .nav-dropdown-menu > :last-child { margin-bottom: 20px; }
 
   .nav-dropdown-menu::before {
     display: none;
-  }
-
-  .nav-dropdown-menu::after {
-    content: '';
-    position: absolute;
-    top: 4px;
-    bottom: 10px;
-    left: 0;
-    width: 2px;
-    background: #93c5fd;
   }
 
   .nav-dropdown-link {

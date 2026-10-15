@@ -12,14 +12,15 @@ export function HeroSection() {
       <div className="hero-glow" />
       <div className="hero-copy">
         <p className="eyebrow"><span className="eyebrow-dot" /> Digital technologies · Est. 2026</p>
-        <h1>Software development <span className="hero-text-nowrap">company in</span><br /><em>Sri Lanka.</em></h1>
-        <p className="hero-intro">We build websites, mobile apps, business software and automation for companies in Sri Lanka and abroad, from our team in Kandy.</p>
+        <h1>We Bring <span className="hero-text-nowrap">Cutting Edge</span><br /><em>Digital Solutions.</em></h1>
+        <p className="hero-intro">Leading Software Development Company — Empowering businesses
+with modern scalable solutions.</p>
         <div className="hero-actions">
           <a className="button button-primary" href="#contact">Call our team <ArrowUpRight size={17} /></a>
           <a className="text-link" href="#works"><span className="play-icon"><Play size={12} fill="currentColor" /></span> See our work</a>
         </div>
       </div>
-      <div className="hero-art">
+      <div className="hero-art" aria-label={`${SITE.name} hero  image`}>
         <div className="hero-image-frame">
           <img
             src={heroImage.src}
