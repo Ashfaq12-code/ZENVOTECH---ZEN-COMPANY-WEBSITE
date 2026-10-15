@@ -2,7 +2,8 @@ import { useRef } from 'react';
 
 const scrollDuration = 3500;
 
-// Hovering a project slides its tall screenshot through the iMac screen.
+// Hovering a project slides its tall screenshot through the iMac screen at a steady speed.
+// The screenshot must be a direct child of the screen element it scrolls inside.
 export function useScreenshotScroll() {
   const images = useRef(new Map<string, HTMLImageElement>());
   const hovered = useRef(new Map<string, boolean>());

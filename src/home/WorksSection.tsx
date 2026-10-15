@@ -32,8 +32,7 @@ export function WorksSection({ latestProjects, contentError }: WorksSectionProps
     <section className="section-pad works-section" id="works">
       <div className="section-heading services-heading">
         <div><p className="eyebrow">Selected work</p><h2>What we have <span>done.</span></h2></div>
-        {/* PI! NEED DATA: project count, years active and client industries for this lede */}
-        <p className="section-lede">Websites, mobile apps and business software we have built for our clients.</p>
+        <p className="section-lede">Explore our latest creations — from smart apps to powerful business platforms.</p>
       </div>
       <div className="works-tabs-row">
         <div className="works-tabs-pill-box" role="tablist" aria-label="Project categories">

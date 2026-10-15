@@ -4,7 +4,7 @@ import { formatRelativeTime } from '../admin/supabase';
 import { imacFrameImage } from './media';
 import { isRecent } from './projectsData';
 import type { WebProject } from './projectsData';
-import { useScreenshotScroll } from './useScreenshotScroll';
+import { useScreenshotScroll } from '@/lib/useScreenshotScroll';
 
 const initialCount = 9;
 

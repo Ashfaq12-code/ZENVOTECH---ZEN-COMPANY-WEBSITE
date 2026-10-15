@@ -1,4 +1,4 @@
-// Page-scoped CSS for the iMac scroll preview, moved verbatim from the old page file.
+// Page-scoped CSS for headings and the iMac link overlay; the hover scroll lives in useScreenshotScroll.
 const css = `
   @media (max-width: 640px) {
     .webdev-mobile-section-heading {
@@ -10,19 +10,6 @@ const css = `
       font-size: clamp(1.65rem, 7.2vw, 2.5rem) !important;
       line-height: 1.15 !important;
     }
-  }
-
-  .webdev-scroll-area {
-    overflow: hidden;
-  }
-
-  .webdev-scroll-content {
-    will-change: transform;
-    transition: transform 3.5s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .webdev-project-card:hover .webdev-scroll-content {
-    transform: translateY(calc(-100% + 140px));
   }
 
   .webdev-project-overlay {

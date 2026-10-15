@@ -1,3 +1,5 @@
+import { useScreenshotScroll } from '@/lib/useScreenshotScroll';
+
 type ImacScreenProps = {
   title: string;
   href?: string;
@@ -19,10 +21,17 @@ const geometry = {
   },
 };
 
+const screenId = 'screen';
+
 export function ImacScreen({ title, href, image, variant }: ImacScreenProps) {
   const shape = geometry[variant];
+  const screenshotScroll = useScreenshotScroll();
   return (
-    <div className={`relative w-full ${shape.box} overflow-hidden rounded-xl bg-transparent`}>
+    <div
+      className={`relative w-full ${shape.box} overflow-hidden rounded-xl bg-transparent`}
+      onMouseEnter={() => screenshotScroll.scroll(screenId, true)}
+      onMouseLeave={() => screenshotScroll.scroll(screenId, false)}
+    >
       <img
         src="/media/web/imac-frame.webp"
         alt=""
@@ -32,18 +41,18 @@ export function ImacScreen({ title, href, image, variant }: ImacScreenProps) {
         decoding="async"
         className="absolute inset-0 w-full h-full object-contain pointer-events-none z-10"
       />
-      <div className={`absolute ${shape.screen} overflow-hidden webdev-scroll-area`}>
-        <div className="webdev-scroll-content">
-          <img
-            src={image.src}
-            alt={`Full-page screenshot of the ${title} website`}
-            width={image.width}
-            height={image.height}
-            loading="lazy"
-            decoding="async"
-            className={`w-full object-cover block${shape.image}`}
-          />
-        </div>
+      <div className={`absolute ${shape.screen} overflow-hidden`}>
+        <img
+          ref={screenshotScroll.register(screenId)}
+          src={image.src}
+          alt={`Full-page screenshot of the ${title} website`}
+          width={image.width}
+          height={image.height}
+          loading="lazy"
+          decoding="async"
+          onLoad={() => screenshotScroll.resumeIfHovered(screenId)}
+          className={`w-full object-cover block will-change-transform${shape.image}`}
+        />
       </div>
       {href && (
         <a href={href} target="_blank" rel="noopener noreferrer" className="webdev-project-overlay" aria-label={`Visit live website for ${title}`} />
