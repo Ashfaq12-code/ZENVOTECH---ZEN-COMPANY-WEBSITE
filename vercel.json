@@ -11,7 +11,7 @@
           "value": "zenvora.lk"
         }
       ],
-      "destination": "https://zenvotech.lk/:path*",
+      "destination": "https://www.zenvotech.lk/:path*",
       "permanent": true
     },
     {
@@ -22,18 +22,7 @@
           "value": "www.zenvora.lk"
         }
       ],
-      "destination": "https://zenvotech.lk/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.zenvotech.lk"
-        }
-      ],
-      "destination": "https://zenvotech.lk/:path*",
+      "destination": "https://www.zenvotech.lk/:path*",
       "permanent": true
     },
     {

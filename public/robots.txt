@@ -15,4 +15,4 @@ User-agent: Bingbot
 Allow: /
 Disallow: /admin
 
-Sitemap: https://zenvotech.lk/sitemap.xml
+Sitemap: https://www.zenvotech.lk/sitemap.xml

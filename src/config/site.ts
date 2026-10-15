@@ -30,7 +30,7 @@ type SiteConfig = {
 // Single source of truth for NAP (name, address, phone) and social links.
 export const SITE = {
   name: 'Zenvo Tech',
-  url: 'https://zenvotech.lk',
+  url: 'https://www.zenvotech.lk',
   email: 'hello@zenvotech.lk',
   phone: { e164: '+94742363574', display: '+94 74 236 3574' },
   whatsappUrl: 'https://wa.me/94742363574',
