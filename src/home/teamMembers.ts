@@ -31,7 +31,7 @@ export const teamMembers: readonly TeamMember[] = [
     name: 'Ashfaq',
     // PI! NEED DATA: real experience; role is 'FOUNDER & CEO' on home, 'DATA ANALYST' on about
     description: 'Tech lead directing digital strategy, system design, and brand execution.',
-    photo: photo('ashfaq-2', 551, 640),
+    photo: photo('ashfaq-3', 640, 640),
     home: { role: 'FOUNDER & CEO', badge: 'LEADERSHIP', skills: ['System Design', 'Digital Strategy', 'Tech Lead'] },
     about: { role: 'DATA ANALYST', badge: 'LEADERSHIP', skills: ['System Design', 'Python', 'Node js', 'c#'] },
   },
