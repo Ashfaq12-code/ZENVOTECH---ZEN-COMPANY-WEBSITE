@@ -24,7 +24,7 @@ export function HowWeWork() {
           {steps.map((step, i) => (
             <li className="who-why-feature" key={step.title}>
               <span className="who-why-number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-              <h3>{step.title}</h3>
+              <h3 className="!text-lg">{step.title}</h3>
               <p>{step.description}</p>
             </li>
           ))}
