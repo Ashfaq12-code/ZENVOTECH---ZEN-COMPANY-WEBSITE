@@ -36,12 +36,12 @@ const shot = (name: string, width: number, height: number): ScreenImage => ({ sr
 
 // PI! NEED DATA: year, client industry and measurable result per portfolio project
 export const webProjects: readonly WebProject[] = [
-  { id: 'zenvora', title: SITE.name, flag: lkFlag, screen: shot('zenvotech-2', 720, 4890) },
-  { id: 'sweetladyjane', title: 'Sweetladyjane', flag: lkFlag, screen: shot('sweetladyjane-2', 720, 2886), url: 'https://sweetladyjane.com/' },
-  { id: 'olunid', title: 'Olunid', flag: itFlag, screen: shot('olunid-2', 720, 790), url: 'https://olunid.com/' },
-  { id: 'alexwides', title: 'Alex Wides', flag: itFlag, screen: shot('alexwides-2', 720, 3682), url: 'https://www.alexwides.com/' },
-  { id: 'mydreamcar', title: 'Mydreamcar', flag: lkFlag, screen: shot('mydreamcar-2', 720, 3910), url: 'https://www.mydreamcar.lk/' },
-  { id: 'bloodlinetattoobali', title: 'Bloodlinetattoobali', flag: auFlag, screen: shot('bloodlinetattoobali-2', 720, 4032), url: 'https://www.bloodlinetattoobali.com/' },
+  { id: 'zenvora', title: SITE.name, flag: lkFlag, screen: shot('zenvotech', 480, 1234) },
+  { id: 'sweetladyjane', title: 'Sweetladyjane', flag: lkFlag, screen: shot('sweetladyjane', 201, 640), url: 'https://sweetladyjane.com/' },
+  { id: 'olunid', title: 'Olunid', flag: itFlag, screen: shot('olunid', 622, 640), url: 'https://olunid.com/' },
+  { id: 'alexwides', title: 'Alex Wides', flag: itFlag, screen: shot('alexwides', 159, 640), url: 'https://www.alexwides.com/' },
+  { id: 'mydreamcar', title: 'Mydreamcar', flag: lkFlag, screen: shot('mydreamcar', 124, 638), url: 'https://www.mydreamcar.lk/' },
+  { id: 'bloodlinetattoobali', title: 'Bloodlinetattoobali', flag: auFlag, screen: shot('bloodlinetattoobali', 265, 640), url: 'https://www.bloodlinetattoobali.com/' },
 ];
 
 // PI! NEED DATA: case study or live URL for each desktop project
